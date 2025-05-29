@@ -15,5 +15,5 @@ jobs:
             run: docker build -t welcome-docker:latest .
 
           - name: Run Docker Container
-            run: docker run --name welcome-docker-c -p 3000:3000 welcom-docker
+            run: docker run --name welcome-docker-c -p 3000:3000 welcome-docker
           
