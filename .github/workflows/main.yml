@@ -11,13 +11,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Login to JFrog
-        run: echo "${{ secrets.JFROG_PASSWORD}}" | docker login ${{ secrets.JFROG_REGISTRY}} -u ${{ secrets.JFROG_USERNAME}} --password-stdin
+        run: echo "${{ secrets.JFROG_PASSWORD }}" | docker login ${{ secrets.JFROG_REGISTRY}} -u ${{ secrets.JFROG_USERNAME}} --password-stdin
       
       - name: Build Docker Image
-        run: docker build -t ${{ secrets.JFROG_REGISTRY}}/dh-docker/welcome-docker:latest .
+        run: docker build -t ${{ secrets.JFROG_REGISTRY }}/dh-docker/welcome-docker:latest .
 
       - name: Push Docker Image
-        run: docker push ${{ secrets.JFROG_REGISTRY}}/dh-docker/welcome-docker:latest
+        run: docker push ${{ secrets.JFROG_REGISTRY }}/dh-docker/welcome-docker:latest
 
 
 
