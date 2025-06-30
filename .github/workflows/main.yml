@@ -4,16 +4,22 @@ on:
   [workflow_dispatch]
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-        steps:
-          - name: checkout code
-            uses: actions/checkout@v3
+      - name: Login to JFrog
+        run: echo "${{ secrets.JFROG_PASSWORD}}" | docker login ${{ secrets.JFROG_REGISTRY}} -u ${{ secrets.JFROG_USERNAME}} --password-stdin
+      
+      - name: Build Docker Image
+        run: docker build -t ${{ secrets.JFROG_REGISTRY}}/dh-docker/welcome-docker:latest .
 
-          - name: Build Docker Image
-            run: docker build -t welcome-docker:latest .
+      - name: Push Docker Image
+        run: docker push ${{ secrets.JFROG_REGISTRY}}/dh-docker/welcome-docker:latest
 
-          - name: Run Docker Container
-            run: docker run --name welcome-docker-c -p 3000:3000 welcome-docker
+
+
+  
           
